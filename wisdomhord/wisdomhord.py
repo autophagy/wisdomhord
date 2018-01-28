@@ -81,3 +81,37 @@ class wisdomhord(object):
 
     def row_count(self):
         return int(self.meta['COUNT'])
+
+    def insert(self, row_dict):
+        def format_cell(cell, col_length):
+            c = str(cell).strip()
+            return "{0}{1}".format(c, " "*(col_length-len(c)))
+
+        row_framework = "[ {} ]"
+        ordered_row = []
+        for key in self.keys:
+            ordered_row.append(format_cell(row_dict[key], self._column_lengths[key]))
+
+        row = row_framework.format(' | '.join(ordered_row))
+
+        with open(self.file_path, 'r') as hord:
+            hord_buffer = hord.readlines()[self._key_row+1:]
+
+        with open(self.file_path, 'w') as hord:
+            # Update metadata
+            self.meta['COUNT'] = self.row_count() + 1
+            self.meta['UPDATED'] = datarum.wending.today().formatted()
+
+            for k, v in self.meta.items():
+                hord.write("// {0} :: {1}\n".format(k, v))
+
+            hord.write("\n")
+
+            # Pad out keys
+            padded_keys = list(map(lambda x: "{0}{1}".format(x, " "*(self._column_lengths[x]-len(x))), self.keys))
+            hord.write("[ {} ]\n".format(' | '.join(padded_keys)))
+
+            for line_num, line in enumerate(hord_buffer):
+                if line_num == 0:
+                    line = "{0}\n{1}".format(row, line)
+                hord.write(line)
