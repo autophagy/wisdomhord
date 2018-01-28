@@ -1,9 +1,23 @@
 import os.path
 import re
 import itertools
+import datetime
 
 def hladan(file_path):
     return wisdomhord(file_path)
+
+def cennan(file_path, cols, invoker="Wísdómhord", description="Wísdómhord file"):
+    now = datetime.datetime.now()
+
+    with open(file_path, 'xt') as hord:
+        hord.write("// INVOKER :: {}\n".format(invoker))
+        hord.write("// DESCRIPTION :: {}\n".format(description))
+        hord.write("// INCEPT :: {}\n".format(str(now)))
+        hord.write("// UPDATED :: {}\n".format(str(now)))
+        hord.write("// COUNT :: 0\n\n")
+        hord.write("[ {} ]".format(' | '.join(list(map(lambda x: x.upper(), cols)))))
+
+    return hladan(file_path)
 
 class wisdomhord(object):
 
@@ -25,7 +39,7 @@ class wisdomhord(object):
             raise ValueError("{} does not exist".format(file_path))
 
     def open_hord(self):
-        with open(self.file_path) as hord:
+        with open(self.file_path, 'r') as hord:
             for line_index, line in enumerate(hord):
                 if line[:2] == '//':
                     self._add_to_meta(line[2:])
