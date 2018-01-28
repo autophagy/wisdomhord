@@ -13,6 +13,9 @@ setup(
     description='',
     long_description=open('README.rst', encoding='utf-8').read(),
     packages=['wisdomhord'],
+    install_requires=[
+        'datarum==0.2.0'
+    ],
     python_requires='>=3',
     classifiers=[
         'Development Status :: 3 - Alpha',

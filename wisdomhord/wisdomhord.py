@@ -1,19 +1,19 @@
 import os.path
 import re
 import itertools
-import datetime
+import datarum
 
 def hladan(file_path):
     return wisdomhord(file_path)
 
 def cennan(file_path, cols, invoker="Wísdómhord", description="Wísdómhord file"):
-    now = datetime.datetime.now()
+    now = datarum.wending.today()
 
     with open(file_path, 'xt') as hord:
         hord.write("// INVOKER :: {}\n".format(invoker))
         hord.write("// DESCRIPTION :: {}\n".format(description))
-        hord.write("// INCEPT :: {}\n".format(str(now)))
-        hord.write("// UPDATED :: {}\n".format(str(now)))
+        hord.write("// INCEPT :: {}\n".format(now.formatted()))
+        hord.write("// UPDATED :: {}\n".format(now.formatted()))
         hord.write("// COUNT :: 0\n\n")
         hord.write("[ {} ]".format(' | '.join(list(map(lambda x: x.upper(), cols)))))
 
