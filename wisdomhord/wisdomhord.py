@@ -1,5 +1,6 @@
 import os.path
 import re
+import itertools
 
 def hladan(file_path):
     return wisdomhord(file_path)
@@ -43,3 +44,26 @@ class wisdomhord(object):
             stripped_key = key.strip().upper()
             self._column_lengths[stripped_key] = len(key)
             self.keys.append(stripped_key)
+
+    def get_rows(self, limit=None, cols=None):
+        def format_row(line, cols):
+            row = {}
+            row_definition = re.search(self.row_regex, line).group(1)
+            for idx, col in enumerate(row_definition.split(' | ')):
+                if cols is None:
+                    row[self.keys[idx]] = col.strip()
+                elif self.keys[idx] in cols:
+                    row[self.keys[idx]] = col.strip()
+            return row
+
+        if limit is not None:
+            limit = self._key_row + 1 + limit
+
+        rows = []
+        with open(self.file_path) as hord:
+            for line in itertools.islice(hord, self._key_row+1, limit):
+                rows.append(format_row(line, cols))
+        return rows
+
+    def row_count(self):
+        return int(self.meta['COUNT'])

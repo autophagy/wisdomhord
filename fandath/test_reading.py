@@ -46,7 +46,7 @@ class TestWisdomhordReading(unittest.TestCase):
                         'COL4': 'If'}
 
         row = self.hord.get_rows(limit=1)
-        assertEqual(len(row), 1)
+        self.assertEqual(len(row), 1)
 
         for k, v in row[0].items():
             self.assertEqual(expected_row[k], v)
@@ -57,14 +57,14 @@ class TestWisdomhordReading(unittest.TestCase):
 
     def test_get_all_rows(self):
         rows = self.hord.get_rows()
-        self.assertEqual(len(rows), self.hord.meta['COUNT'])
+        self.assertEqual(len(rows), self.hord.row_count())
 
     def test_get_specific_cols(self):
         expected_row = {'COL2': '12345',
                         'COL3': 'True'}
 
         row = self.hord.get_rows(cols=['COL2', 'COL3'], limit=1)
-        assertEqual(len(expected_row), len(row[0]))
+        self.assertEqual(len(expected_row), len(row[0]))
 
         for k, v in row[0].items():
             self.assertEqual(expected_row[k], v)
