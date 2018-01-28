@@ -32,6 +32,13 @@ class TestWisdomhordReading(unittest.TestCase):
     def test_get_keys(self):
         self.assertEqual(self.expected_keys, self.hord.keys)
 
+    def test_get_column_lengths(self):
+        for k, v in self.expected_column_lengths.items():
+            self.assertEqual(self.hord._column_lengths[k], v)
+
+    def test_key_row(self):
+        self.assertEqual(self.hord._key_row, 6)
+
     def test_get_first_row(self):
         expected_row = {'COL1': 'Hello world',
                         'COL2': '12345',
