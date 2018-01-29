@@ -59,7 +59,7 @@ class wisdomhord(object):
             self._column_lengths[stripped_key] = len(key)
             self.keys.append(stripped_key)
 
-    def get_rows(self, limit=None, cols=None):
+    def get_rows(self, limit=None, cols=None, filter_func=lambda x: True):
         def format_row(line, cols):
             row = {}
             row_definition = re.search(self.row_regex, line).group(1)
@@ -76,7 +76,10 @@ class wisdomhord(object):
         rows = []
         with open(self.file_path) as hord:
             for line in itertools.islice(hord, self._key_row+1, limit):
-                rows.append(format_row(line, cols))
+                row = format_row(line, cols)
+                if filter_func(row):
+                    rows.append(format_row(line, cols))
+
         return rows
 
     def row_count(self):

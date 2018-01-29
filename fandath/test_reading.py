@@ -69,3 +69,12 @@ class TestWisdomhordReading(unittest.TestCase):
         for k, v in row[0].items():
             self.assertEqual(expected_row[k], v)
 
+    def test_filter(self):
+        filter_func = lambda row: row['COL3'] == 'True'
+        rows = self.hord.get_rows(filter_func=filter_func)
+
+        self.assertEqual(len(rows), 4)
+
+        for row in rows:
+            self.assertEqual(row['COL3'], 'True')
+
