@@ -87,7 +87,7 @@ class wisdomhord(object):
             c = str(cell).strip()
             return "{0}{1}".format(c, " "*(col_length-len(c)))
 
-        row_framework = "[ {} ]"
+        row_framework = "[ {} ]\n"
         ordered_row = []
         for key in self.keys:
             ordered_row.append(format_cell(row_dict[key], self._column_lengths[key]))
@@ -109,9 +109,10 @@ class wisdomhord(object):
 
             # Pad out keys
             padded_keys = list(map(lambda x: "{0}{1}".format(x, " "*(self._column_lengths[x]-len(x))), self.keys))
-            hord.write("[ {} ]\n".format(' | '.join(padded_keys)))
+            hord.write(row_framework.format(' | '.join(padded_keys)))
+
+            # Insert new row
+            hord.write(row)
 
             for line_num, line in enumerate(hord_buffer):
-                if line_num == 0:
-                    line = "{0}\n{1}".format(row, line)
                 hord.write(line)
