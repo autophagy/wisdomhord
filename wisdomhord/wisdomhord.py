@@ -59,7 +59,7 @@ class wisdomhord(object):
             self._column_lengths[stripped_key] = len(key)
             self.keys.append(stripped_key)
 
-    def get_rows(self, limit=None, cols=None, filter_func=lambda x: True):
+    def get_rows(self, limit=None, cols=None, filter_func=lambda x: True, sort_by=None, reverse_sort=False):
         def format_row(line, cols):
             row = {}
             row_definition = re.search(self.row_regex, line).group(1)
@@ -80,7 +80,10 @@ class wisdomhord(object):
                 if filter_func(row):
                     rows.append(format_row(line, cols))
 
-        return rows
+        if sort_by:
+            return sorted(rows, key = lambda x: x[sort_by], reverse=reverse_sort)
+        else:
+            return rows
 
     def row_count(self):
         return int(self.meta['COUNT'])

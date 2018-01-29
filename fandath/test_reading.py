@@ -78,3 +78,18 @@ class TestWisdomhordReading(unittest.TestCase):
         for row in rows:
             self.assertEqual(row['COL3'], 'True')
 
+    def test_sort(self):
+        rows = self.hord.get_rows(cols=['COL4'])
+        col_to_sort = list(map(lambda x: x['COL4'], rows))
+
+        sorted_col = sorted(col_to_sort)
+        reverse_sorted_col = sorted(col_to_sort, reverse=True)
+
+        sorted_rows = self.hord.get_rows(sort_by='COL4')
+        reverse_sorted_rows = self.hord.get_rows(sort_by='COL4', reverse_sort=True)
+
+        for i, row in enumerate(sorted_rows):
+            self.assertEqual(row['COL4'], sorted_col[i])
+
+        for i, row in enumerate(reverse_sorted_rows):
+            self.assertEqual(row['COL4'], reverse_sorted_col[i])
