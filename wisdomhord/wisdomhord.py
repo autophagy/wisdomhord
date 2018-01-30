@@ -40,6 +40,8 @@ class wisdomhord(object):
 
     def open_hord(self):
         with open(self.file_path, 'r') as hord:
+            self.meta = {}
+            self.keys = []
             for line_index, line in enumerate(hord):
                 if line[:2] == '//':
                     self._add_to_meta(line[2:])
@@ -60,30 +62,30 @@ class wisdomhord(object):
             self.keys.append(stripped_key)
 
     def get_rows(self, limit=None, cols=None, filter_func=lambda x: True, sort_by=None, reverse_sort=False):
-        def format_row(line, cols):
-            row = {}
-            row_definition = re.search(self.row_regex, line).group(1)
-            for idx, col in enumerate(row_definition.split(' | ')):
-                if cols is None:
-                    row[self.keys[idx]] = col.strip()
-                elif self.keys[idx] in cols:
-                    row[self.keys[idx]] = col.strip()
-            return row
-
         if limit is not None:
             limit = self._key_row + 1 + limit
 
         rows = []
         with open(self.file_path) as hord:
             for line in itertools.islice(hord, self._key_row+1, limit):
-                row = format_row(line, cols)
+                row = self.format_row(line, cols)
                 if filter_func(row):
-                    rows.append(format_row(line, cols))
+                    rows.append(row)
 
         if sort_by:
             return sorted(rows, key = lambda x: x[sort_by], reverse=reverse_sort)
         else:
             return rows
+
+    def format_row(self, line, cols=None):
+        row = {}
+        row_definition = re.search(self.row_regex, line).group(1)
+        for idx, col in enumerate(row_definition.split(' | ')):
+            if cols is None:
+                row[self.keys[idx]] = col.strip()
+            elif self.keys[idx] in cols:
+                row[self.keys[idx]] = col.strip()
+        return row
 
     def row_count(self):
         return int(self.meta['COUNT'])
@@ -92,6 +94,17 @@ class wisdomhord(object):
         def format_cell(cell, col_length):
             c = str(cell).strip()
             return "{0}{1}".format(c, " "*(col_length-len(c)))
+
+        def update_column_lengths(row_dict, column_lengths):
+            a = dict(map(lambda kv: (kv[0], max(len(str(kv[1])),
+                                                column_lengths[kv[0]])),
+                         row_dict.items()))
+            if a != column_lengths:
+                return True, a
+            else:
+                return False, column_lengths
+
+        update_lengths, self._column_lengths = update_column_lengths(row_dict, self._column_lengths)
 
         row_framework = "[ {} ]\n"
         ordered_row = []
@@ -120,5 +133,10 @@ class wisdomhord(object):
             # Insert new row
             hord.write(row)
 
-            for line_num, line in enumerate(hord_buffer):
+            for line in hord_buffer:
+                if update_lengths:
+                    padded_cells = list(map(lambda kv: format_cell(kv[1],
+                                                                   self._column_lengths[kv[0]]),
+                                            self.format_row(line).items()))
+                    line = row_framework.format(' | '.join(padded_cells))
                 hord.write(line)
