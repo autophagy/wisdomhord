@@ -3,23 +3,27 @@ import re
 import itertools
 import datarum
 
-def hladan(file_path):
-    return wisdomhord(file_path)
+from .bisen import Bisen
 
-def cennan(file_path, cols, invoker="Wísdómhord", description="Wísdómhord file"):
+def hladan(file_path, bisen=Bisen):
+    return Wisdomhord(file_path, bisen)
+
+def cennan(file_path, bisen=Bisen):
     now = datarum.wending.today()
 
+    b = bisen()
+
     with open(file_path, 'xt') as hord:
-        hord.write("// INVOKER :: {}\n".format(invoker))
-        hord.write("// DESCRIPTION :: {}\n".format(description))
+        hord.write("// INVOKER :: {}\n".format(b.__invoker__))
+        hord.write("// DESCRIPTION :: {}\n".format(b.__description__))
         hord.write("// INCEPT :: {}\n".format(now.formatted()))
         hord.write("// UPDATED :: {}\n".format(now.formatted()))
         hord.write("// COUNT :: 0\n\n")
-        hord.write("[ {} ]".format(' | '.join(list(map(lambda x: x.upper(), cols)))))
+        hord.write("[ {} ]".format(' | '.join(b.sweoras)))
 
-    return hladan(file_path)
+    return hladan(file_path, bisen)
 
-class wisdomhord(object):
+class Wisdomhord(object):
 
     meta = {}
     keys = []
@@ -28,12 +32,13 @@ class wisdomhord(object):
 
     row_regex = '\[ (.*?)\ ]'
 
-    def __new__(self, file_path):
+    def __new__(self, file_path, bisen=Bisen):
         self = object.__new__(self)
 
         if os.path.isfile(file_path):
             self.file_path = file_path
             self.open_hord()
+            self.bisen = bisen()
             return self
         else:
             raise ValueError("{} does not exist".format(file_path))
@@ -85,7 +90,7 @@ class wisdomhord(object):
                 row[self.keys[idx]] = col.strip()
             elif self.keys[idx] in cols:
                 row[self.keys[idx]] = col.strip()
-        return row
+        return self.bisen.cast_row(row)
 
     def row_count(self):
         return int(self.meta['COUNT'])

@@ -1,10 +1,22 @@
 # -*- coding: utf-8 -*-
 
 import wisdomhord
+from wisdomhord import Bisen, Sweor
 import unittest
 import os
 
 PATH_TO_WH = os.path.join(os.path.dirname(__file__), "test.hord")
+
+class TestBisen(Bisen):
+
+    __invoker__ = 'Wísdómhord Testing'
+    __description__ = 'Test data for Wísdómhord'
+
+    col1 = Sweor('COL1', lambda x: str(x), None)
+    col2 = Sweor('COL2', lambda x: int(x), None)
+    col3 = Sweor('COL3', lambda x: x == 'True', None)
+    col4 = Sweor('COL4', lambda x: str(x), None)
+
 
 class TestWisdomhordReading(unittest.TestCase):
 
@@ -23,7 +35,7 @@ class TestWisdomhordReading(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.hord = wisdomhord.hladan(PATH_TO_WH)
+        cls.hord = wisdomhord.hladan(PATH_TO_WH, bisen=TestBisen)
 
     def test_get_metadata(self):
         for k, v in self.expected_meta.items():
@@ -41,8 +53,8 @@ class TestWisdomhordReading(unittest.TestCase):
 
     def test_get_first_row(self):
         expected_row = {'COL1': 'Hello world',
-                        'COL2': '12345',
-                        'COL3': 'True',
+                        'COL2': 12345,
+                        'COL3': True,
                         'COL4': 'If'}
 
         row = self.hord.get_rows(limit=1)
@@ -60,8 +72,8 @@ class TestWisdomhordReading(unittest.TestCase):
         self.assertEqual(len(rows), self.hord.row_count())
 
     def test_get_specific_cols(self):
-        expected_row = {'COL2': '12345',
-                        'COL3': 'True'}
+        expected_row = {'COL2': 12345,
+                        'COL3': True}
 
         row = self.hord.get_rows(cols=['COL2', 'COL3'], limit=1)
         self.assertEqual(len(expected_row), len(row[0]))
@@ -70,13 +82,13 @@ class TestWisdomhordReading(unittest.TestCase):
             self.assertEqual(expected_row[k], v)
 
     def test_filter(self):
-        filter_func = lambda row: row['COL3'] == 'True'
+        filter_func = lambda row: row['COL3'] == True
         rows = self.hord.get_rows(filter_func=filter_func)
 
         self.assertEqual(len(rows), 4)
 
         for row in rows:
-            self.assertEqual(row['COL3'], 'True')
+            self.assertEqual(row['COL3'], True)
 
     def test_sort(self):
         rows = self.hord.get_rows(cols=['COL4'])
