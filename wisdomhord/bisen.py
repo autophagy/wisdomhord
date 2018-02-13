@@ -1,19 +1,22 @@
 class Sweor(object):
 
-    def __new__(self, column_name, cast_from_func, cast_to_func):
+    def __new__(self, column_name, column_class):
         self = object.__new__(self)
         self.column_name = column_name.upper()
-        self.cast_from_func = cast_from_func
+        self.column_class = column_class
         return self
 
     def cast_from(self, value):
         if value == '':
             return None
         else:
-            return self.cast_from_func(value)
+            return self.column_class.cast_from_hord(value)
 
     def cast_to(self, value):
-        return self.cast_to_func(value)
+        if value == None:
+            return ''
+        else:
+            return self.column_class.cast_to_hord(value)
 
 
 class Bisen(object):

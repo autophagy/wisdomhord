@@ -12,10 +12,10 @@ class TestBisen(Bisen):
     __invoker__ = 'Wísdómhord Testing'
     __description__ = 'Test data for Wísdómhord'
 
-    col1 = Sweor('COL1', lambda x: str(x), None)
-    col2 = Sweor('COL2', lambda x: int(x), None)
-    col3 = Sweor('COL3', lambda x: x == 'True', None)
-    col4 = Sweor('COL4', lambda x: str(x), None)
+    col1 = Sweor('COL1', wisdomhord.String)
+    col2 = Sweor('COL2', wisdomhord.Integer)
+    col3 = Sweor('COL3', wisdomhord.Boolean)
+    col4 = Sweor('COL4', wisdomhord.String)
 
 
 class TestWisdomhordReading(unittest.TestCase):
