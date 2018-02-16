@@ -35,7 +35,7 @@ class TestWisdomhordReading(unittest.TestCase):
                'COL2': True,
                'COL3': 10,
                'COL4': 20.3,
-               'COL5': datetime.datetime.now()}
+               'COL5': datetime.datetime(2018, 2, 16, 12, 11, 15)}
 
         self.hord.insert(row)
 

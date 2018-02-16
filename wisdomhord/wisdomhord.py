@@ -73,7 +73,7 @@ class Wisdomhord(object):
         rows = []
         with open(self.file_path) as hord:
             for line in itertools.islice(hord, self._key_row+1, limit):
-                row = self.format_row(line, cols)
+                row = self.bisen.cast_from(self.format_row(line, cols))
                 if filter_func(row):
                     rows.append(row)
 
@@ -90,7 +90,7 @@ class Wisdomhord(object):
                 row[self.keys[idx]] = col.strip()
             elif self.keys[idx] in cols:
                 row[self.keys[idx]] = col.strip()
-        return self.bisen.cast_row(row)
+        return row
 
     def row_count(self):
         return int(self.meta['COUNT'])
@@ -109,12 +109,13 @@ class Wisdomhord(object):
             else:
                 return False, column_lengths
 
-        update_lengths, self._column_lengths = update_column_lengths(row_dict, self._column_lengths)
+        casted_row_dict = self.bisen.cast_to(row_dict)
+        update_lengths, self._column_lengths = update_column_lengths(casted_row_dict, self._column_lengths)
 
         row_framework = "[ {} ]\n"
         ordered_row = []
         for key in self.keys:
-            ordered_row.append(format_cell(row_dict[key], self._column_lengths[key]))
+            ordered_row.append(format_cell(casted_row_dict[key], self._column_lengths[key]))
 
         row = row_framework.format(' | '.join(ordered_row))
 

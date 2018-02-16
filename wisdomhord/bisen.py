@@ -34,7 +34,7 @@ class Bisen(object):
         if len(self.sweoras.keys()) == 0:
             raise ValueError("Bisen columns definition has no valid columns")
 
-    def cast_row(self, row_dict):
+    def cast_from(self, row_dict):
         casted_dict = {}
 
         for k, v in row_dict.items():
@@ -42,6 +42,15 @@ class Bisen(object):
                 casted_dict[k] = self.sweoras[k].cast_from(v)
             else:
                 casted_dict[k] = v
+
+        return casted_dict
+
+    def cast_to(self, row_dict):
+        casted_dict = {}
+
+        for k, v in row_dict.items():
+            if k in self.sweoras:
+                casted_dict[k] = self.sweoras[k].cast_to(v)
 
         return casted_dict
 
