@@ -1,6 +1,8 @@
 language: python
 python:
   - "3.6"
+install:
+  - pip install datarum
 script:
   - python -m unittest -v
 notifications:
