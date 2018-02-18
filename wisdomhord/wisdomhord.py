@@ -9,15 +9,15 @@ def hladan(file_path, bisen=Bisen):
     return Wisdomhord(file_path, bisen)
 
 def cennan(file_path, bisen=Bisen):
-    now = datarum.wending.today()
+    now = datarum.wending.now()
 
     b = bisen()
 
     with open(file_path, 'xt') as hord:
         hord.write("// INVOKER :: {}\n".format(b.__invoker__))
         hord.write("// DESCRIPTION :: {}\n".format(b.__description__))
-        hord.write("// INCEPT :: {}\n".format(now.formatted()))
-        hord.write("// UPDATED :: {}\n".format(now.formatted()))
+        hord.write("// INCEPT :: {}\n".format(now.strftime('{daeg} {month} {gere}')))
+        hord.write("// UPDATED :: {}\n".format(now.strftime('{daeg} {month} {gere}')))
         hord.write("// COUNT :: 0\n\n")
         hord.write("[ {} ]".format(' | '.join(b.sweoras)))
 
@@ -125,7 +125,7 @@ class Wisdomhord(object):
         with open(self.file_path, 'w') as hord:
             # Update metadata
             self.meta['COUNT'] = self.row_count() + 1
-            self.meta['UPDATED'] = datarum.wending.today().formatted()
+            self.meta['UPDATED'] = datarum.wending.now().strftime('{daeg} {month} {gere}')
 
             for k, v in self.meta.items():
                 hord.write("// {0} :: {1}\n".format(k, v))
