@@ -32,7 +32,8 @@ value dictionary you want to insert::
            'COL2': True,
            'COL3': 10,
            'COL4': 20.3,
-           'COL5': datetime.datetime(2018, 2, 16, 12, 11, 15)}
+           'COL5': datetime.datetime(2018, 2, 16, 12, 11, 15),
+           'COL6': datarum.wending(226, 5, 28, 12, 11, 15)}
 
     hord.insert(row)
 

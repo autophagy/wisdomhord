@@ -20,6 +20,7 @@ To do this, create a class that inherits from the Bisen class::
         col3 = Sweor('COL3', wisdomhord.Integer)
         col4 = Sweor('COL4', wisdomhord.Float)
         col5 = Sweor('COL5', wisdomhord.DateTime)
+        col6 = Sweor('COL6', wisdomhord.Wending)
 
 Creating and inserting into a hord using this model would produce a hord that
 looks like:
@@ -32,8 +33,8 @@ looks like:
     // UPDATED :: 28 Regn 226
     // COUNT :: 1
 
-    [ COL1   | COL2 | COL3 | COL4 | COL5                   ]
-    [ Hello! | True | 10   | 20.3 | 16.02.2018 // 12.11.15 ]
+    [ COL1   | COL2 | COL3 | COL4 | COL5                   | COL6                   ]
+    [ Hello! | True | 10   | 20.3 | 16.02.2018 // 12.11.15 | 28 Regn 226 // 12.11.15]
 
 Reading from this hord while providing this model will return a dictionary for
 each row where each cell is cast to the appropriate object - for example ``COL5``
