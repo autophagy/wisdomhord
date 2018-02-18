@@ -4,6 +4,8 @@ import wisdomhord
 from wisdomhord import Bisen, Sweor
 import unittest
 import os
+import datetime
+import datarum
 
 PATH_TO_WH = os.path.join(os.path.dirname(__file__), "test.hord")
 
@@ -16,6 +18,8 @@ class TestBisen(Bisen):
     col2 = Sweor('COL2', wisdomhord.Integer)
     col3 = Sweor('COL3', wisdomhord.Boolean)
     col4 = Sweor('COL4', wisdomhord.String)
+    col5 = Sweor('COL5', wisdomhord.DateTime)
+    col6 = Sweor('COL6', wisdomhord.Wending)
 
 
 class TestWisdomhordReading(unittest.TestCase):
@@ -26,12 +30,14 @@ class TestWisdomhordReading(unittest.TestCase):
                      'UPDATED': '9 Regn 226 // 04.00',
                      'COUNT': '7'}
 
-    expected_keys = ['COL1', 'COL2', 'COL3', 'COL4']
+    expected_keys = ['COL1', 'COL2', 'COL3', 'COL4', 'COL5', 'COL6']
 
     expected_column_lengths = {'COL1' : 13,
                                'COL2': 5,
                                'COL3': 5,
-                               'COL4': 11}
+                               'COL4': 11,
+                               'COL5': 22,
+                               'COL6': 26}
 
     @classmethod
     def setUpClass(cls):
@@ -55,7 +61,9 @@ class TestWisdomhordReading(unittest.TestCase):
         expected_row = {'COL1': 'Hello world',
                         'COL2': 12345,
                         'COL3': True,
-                        'COL4': 'If'}
+                        'COL4': 'If',
+                        'COL5': datetime.datetime(2018, 2, 16, 12, 15, 15),
+                        'COL6': datarum.wending(226, 5, 28, 12, 11, 15)}
 
         row = self.hord.get_rows(limit=1)
         self.assertEqual(len(row), 1)
