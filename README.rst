@@ -16,6 +16,14 @@ check into Github.
     :target: https://travis-ci.org/Autophagy/wisdomhord
     :alt: Build Status
 
+.. image:: http://scieldas.autophagy.io/pypi/version/wisdomhord.png
+   :target: https://pypi.python.org/pypi/wisdomhord/
+   :alt: Pypi Version
+
+.. image:: http://scieldas.autophagy.io/pypi/pyversions/wisdomhord.png
+   :target: https://pypi.python.org/pypi/wisdomhord/
+   :alt: Python Version
+
 .. image:: http://scieldas.autophagy.io/licenses/MIT.png
    :target: LICENSE
    :alt: MIT License
