@@ -1,4 +1,5 @@
 import datetime
+import datarum
 
 class BaseType(object):
 
@@ -47,3 +48,13 @@ class DateTime(BaseType):
     @staticmethod
     def cast_to_hord(value):
         return datetime.datetime.strftime(value, '%d.%m.%Y // %H.%M.%S')
+
+class Wending(BaseType):
+
+    @staticmethod
+    def cast_from_hord(value):
+        return datarum.wending.strptime(value, '{daeg} {month} {gere} // {tid_zero}.{minute_zero}.{second_zero}')
+
+    @staticmethod
+    def cast_to_hord(value):
+        return value.strftime('{daeg} {month} {gere} // {tid_zero}.{minute_zero}.{second_zero}')

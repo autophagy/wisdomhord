@@ -5,6 +5,7 @@ from wisdomhord import Bisen, Sweor
 import unittest
 import os
 import datetime
+import datarum
 
 PATH_TO_WH = os.path.join(os.path.dirname(__file__), "insertion_test.hord")
 
@@ -13,11 +14,12 @@ class TestBisen(Bisen):
     __invoker__ = 'Wísdómhord Insertion Testing'
     __description__ = 'Insertion Test For Wísdómhord'
 
-    col1 = Sweor('COL1', wisdomhord.String)
-    col2 = Sweor('COL2', wisdomhord.Boolean)
-    col3 = Sweor('COL3', wisdomhord.Integer)
-    col4 = Sweor('COL4', wisdomhord.Float)
-    col5 = Sweor('COL5', wisdomhord.DateTime)
+    col1 = Sweor('STRING',   wisdomhord.String)
+    col2 = Sweor('BOOLEAN',  wisdomhord.Boolean)
+    col3 = Sweor('INTEGER',  wisdomhord.Integer)
+    col4 = Sweor('FLOAT',    wisdomhord.Float)
+    col5 = Sweor('DATETIME', wisdomhord.DateTime)
+    col6 = Sweor('WENDING',  wisdomhord.Wending)
 
 
 class TestWisdomhordReading(unittest.TestCase):
@@ -31,11 +33,12 @@ class TestWisdomhordReading(unittest.TestCase):
         os.remove(PATH_TO_WH)
 
     def test_insertion(self):
-        row = {'COL1': 'Hello!',
-               'COL2': True,
-               'COL3': 10,
-               'COL4': 20.3,
-               'COL5': datetime.datetime(2018, 2, 16, 12, 11, 15)}
+        row = {'STRING':   'Hello!',
+               'BOOLEAN':  True,
+               'INTEGER':  10,
+               'FLOAT':    20.3,
+               'DATETIME': datetime.datetime(2018, 2, 16, 12, 11, 15),
+               'WENDING':  datarum.wending(226, 5, 28, 12, 11, 15)}
 
         self.hord.insert(row)
 
