@@ -45,6 +45,6 @@ class TestWisdomhordReading(unittest.TestCase):
         self.assertEqual(self.expected_keys, self.hord.keys)
 
     def test_correct_wending(self):
-        today = datarum.wending.now().strftime('{daeg} {month} {gere}')
+        today = datarum.wending.now().strftime('{daeg} {month} {gere} // {tid_zero}.{minute_zero}')
         self.assertEqual(self.hord.meta['INCEPT'], today)
         self.assertEqual(self.hord.meta['UPDATED'], today)
