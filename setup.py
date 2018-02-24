@@ -29,7 +29,7 @@ check into Github.
    :alt: MIT License""",
     packages=['wisdomhord'],
     install_requires=[
-        'datarum==0.4.0'
+        'datarum==0.4.1'
     ],
     python_requires='>=3.6',
     classifiers=[
