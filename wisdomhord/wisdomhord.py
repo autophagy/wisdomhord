@@ -78,7 +78,7 @@ class Wisdomhord(object):
                     rows.append(row)
 
         if sort_by:
-            return sorted(rows, key = lambda x: x[sort_by], reverse=reverse_sort)
+            return sorted(rows, key = lambda x: x.get(sort_by.column_name), reverse=reverse_sort)
         else:
             return rows
 
@@ -95,7 +95,7 @@ class Wisdomhord(object):
     def row_count(self):
         return int(self.meta['COUNT'])
 
-    def insert(self, row_dict):
+    def insert(self, bisen):
         def format_cell(cell, col_length):
             c = str(cell).strip()
             return "{0}{1}".format(c, " "*(col_length-len(c)))
@@ -109,7 +109,9 @@ class Wisdomhord(object):
             else:
                 return False, column_lengths
 
-        casted_row_dict = self.bisen.cast_to(row_dict)
+        assert type(bisen) is self.bisen.__class__
+
+        casted_row_dict = self.bisen.cast_to(bisen)
         update_lengths, self._column_lengths = update_column_lengths(casted_row_dict, self._column_lengths)
 
         row_framework = "[ {} ]\n"

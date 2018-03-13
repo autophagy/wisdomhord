@@ -18,39 +18,58 @@ class Sweor(object):
         else:
             return self.column_class.cast_to_hord(value)
 
+class Entry(object):
+
+    def __init__(self):
+        self.keys = {}
+
+    def get(self, key):
+        return getattr(self, self.keys[key])
+
+    def set(self, attr, sweor, key):
+        setattr(self, attr, sweor)
+        self.keys[key] = attr
 
 class Bisen(object):
 
     __invoker__ = 'Wísdómhord'
     __description__ = 'Wísdómhord file'
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         self.sweoras = {}
+        self.sweoras_attr = {}
+        self.values = {}
         for attr in dir(self):
             attr_obj = getattr(self, attr)
             if isinstance(attr_obj, Sweor):
-                self.sweoras[attr_obj.column_name] = attr_obj
+                self.sweoras[attr_obj.column_name] = attr
+                self.sweoras_attr[attr] = attr_obj
 
         if len(self.sweoras.keys()) == 0:
             raise ValueError("Bisen columns definition has no valid columns")
 
+        for k, v in kwargs.items():
+            if k in self.sweoras_attr:
+                self.values[k] = v
+
     def cast_from(self, row_dict):
-        casted_dict = {}
-
+        entry = Entry()
         for k, v in row_dict.items():
             if k in self.sweoras:
-                casted_dict[k] = self.sweoras[k].cast_from(v)
-            else:
-                casted_dict[k] = v
+                a = self.sweoras[k]
+                entry.set(a,
+                          self.sweoras_attr[a].cast_from(v),
+                          k)
 
-        return casted_dict
+        return entry
 
-    def cast_to(self, row_dict):
+    def cast_to(self, insert_bisen):
         casted_dict = {}
 
-        for k, v in row_dict.items():
-            if k in self.sweoras:
-                casted_dict[k] = self.sweoras[k].cast_to(v)
+        for k, v in insert_bisen.values.items():
+            if k in self.sweoras_attr:
+                sweor = self.sweoras_attr[k]
+                casted_dict[sweor.column_name] = sweor.cast_to(v)
 
         return casted_dict
 

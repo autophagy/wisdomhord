@@ -33,6 +33,7 @@ class TestWisdomhordReading(unittest.TestCase):
         os.remove(PATH_TO_WH)
 
     def test_insertion(self):
+
         row = {'STRING':   'Hello!',
                'BOOLEAN':  True,
                'INTEGER':  10,
@@ -40,8 +41,12 @@ class TestWisdomhordReading(unittest.TestCase):
                'DATETIME': datetime.datetime(2018, 2, 16, 12, 11, 15),
                'WENDING':  datarum.wending(226, 5, 28, 12, 11, 15)}
 
-        self.hord.insert(row)
+        row_to_insert = TestBisen(col1=row['STRING'],   col2=row['BOOLEAN'],
+                                  col3=row['INTEGER'],  col4=row['FLOAT'],
+                                  col5=row['DATETIME'], col6=row['WENDING'])
+
+        self.hord.insert(row_to_insert)
 
         rows = self.hord.get_rows()
         for k, v in row.items():
-            self.assertEqual(v, rows[0][k])
+            self.assertEqual(v, rows[0].get(k))

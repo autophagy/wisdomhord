@@ -58,18 +58,18 @@ class TestWisdomhordReading(unittest.TestCase):
         self.assertEqual(self.hord._key_row, 6)
 
     def test_get_first_row(self):
-        expected_row = {'COL1': 'Hello world',
-                        'COL2': 12345,
-                        'COL3': True,
-                        'COL4': 'If',
-                        'COL5': datetime.datetime(2018, 2, 16, 12, 15, 15),
-                        'COL6': datarum.wending(226, 5, 28, 12, 11, 15)}
+        expected_row = {'col1': 'Hello world',
+                        'col2': 12345,
+                        'col3': True,
+                        'col4': 'If',
+                        'col5': datetime.datetime(2018, 2, 16, 12, 15, 15),
+                        'col6': datarum.wending(226, 5, 28, 12, 11, 15)}
 
         row = self.hord.get_rows(limit=1)
         self.assertEqual(len(row), 1)
 
-        for k, v in row[0].items():
-            self.assertEqual(expected_row[k], v)
+        for k, v in expected_row.items():
+            self.assertEqual(v, getattr(row[0], k))
 
     def test_multiple_rows(self):
         rows = self.hord.get_rows(limit=4)
@@ -80,36 +80,35 @@ class TestWisdomhordReading(unittest.TestCase):
         self.assertEqual(len(rows), self.hord.row_count())
 
     def test_get_specific_cols(self):
-        expected_row = {'COL2': 12345,
-                        'COL3': True}
+        expected_row = {'col2': 12345,
+                        'col3': True}
 
         row = self.hord.get_rows(cols=['COL2', 'COL3'], limit=1)
-        self.assertEqual(len(expected_row), len(row[0]))
 
-        for k, v in row[0].items():
-            self.assertEqual(expected_row[k], v)
+        for k, v in expected_row.items():
+            self.assertEqual(v, getattr(row[0], k))
 
     def test_filter(self):
-        filter_func = lambda row: row['COL3'] == True
+        filter_func = lambda row: row.col3 == True
         rows = self.hord.get_rows(filter_func=filter_func)
 
         self.assertEqual(len(rows), 4)
 
         for row in rows:
-            self.assertEqual(row['COL3'], True)
+            self.assertEqual(row.col3, True)
 
     def test_sort(self):
         rows = self.hord.get_rows(cols=['COL4'])
-        col_to_sort = list(map(lambda x: x['COL4'], rows))
+        col_to_sort = list(map(lambda x: x.col4, rows))
 
         sorted_col = sorted(col_to_sort)
         reverse_sorted_col = sorted(col_to_sort, reverse=True)
 
-        sorted_rows = self.hord.get_rows(sort_by='COL4')
-        reverse_sorted_rows = self.hord.get_rows(sort_by='COL4', reverse_sort=True)
+        sorted_rows = self.hord.get_rows(sort_by=TestBisen.col4)
+        reverse_sorted_rows = self.hord.get_rows(sort_by=TestBisen.col4, reverse_sort=True)
 
         for i, row in enumerate(sorted_rows):
-            self.assertEqual(row['COL4'], sorted_col[i])
+            self.assertEqual(row.col4, sorted_col[i])
 
         for i, row in enumerate(reverse_sorted_rows):
-            self.assertEqual(row['COL4'], reverse_sorted_col[i])
+            self.assertEqual(row.col4, reverse_sorted_col[i])
