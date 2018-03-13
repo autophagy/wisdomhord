@@ -23,8 +23,10 @@ class Entry(object):
     def __init__(self):
         self.keys = {}
 
-    def get(self, key):
-        return getattr(self, self.keys[key])
+    def get(self, key, default=None):
+        if key in self.keys:
+            return getattr(self, self.keys[key])
+        return default
 
     def set(self, attr, sweor, key):
         setattr(self, attr, sweor)
