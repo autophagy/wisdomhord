@@ -50,3 +50,22 @@ class TestWisdomhordReading(unittest.TestCase):
         rows = self.hord.get_rows()
         for k, v in row.items():
             self.assertEqual(v, rows[0].get(k))
+
+    def test_insertion_with_seperator(self):
+
+        row = {'STRING':   'Hello | World!',
+               'BOOLEAN':  True,
+               'INTEGER':  10,
+               'FLOAT':    20.3,
+               'DATETIME': datetime.datetime(2018, 2, 16, 12, 11, 15),
+               'WENDING':  datarum.wending(226, 5, 28, 12, 11, 15)}
+
+        row_to_insert = TestBisen(col1=row['STRING'],   col2=row['BOOLEAN'],
+                                  col3=row['INTEGER'],  col4=row['FLOAT'],
+                                  col5=row['DATETIME'], col6=row['WENDING'])
+
+        self.hord.insert(row_to_insert)
+
+        rows = self.hord.get_rows()
+        for k, v in row.items():
+            self.assertEqual(v, rows[0].get(k))

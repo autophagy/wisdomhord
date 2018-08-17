@@ -11,10 +11,18 @@ class String(BaseType):
 
     @staticmethod
     def cast_from_hord(value):
-        return value
+        return String.escape_characters(value, reverse=True)
 
     @staticmethod
     def cast_to_hord(value):
+        return String.escape_characters(value)
+
+    @staticmethod
+    def escape_characters(value, reverse=False):
+        escapes = [(('|', '\|'))]
+        for escape in escapes:
+            escape = escape[::-1] if reverse else escape
+            value = value.replace(*escape)
         return value
 
 class Boolean(BaseType):
