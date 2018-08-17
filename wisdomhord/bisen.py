@@ -1,5 +1,4 @@
 class Sweor(object):
-
     def __new__(self, column_name, column_class):
         self = object.__new__(self)
         self.column_name = column_name.upper()
@@ -7,19 +6,19 @@ class Sweor(object):
         return self
 
     def cast_from(self, value):
-        if value == '':
+        if value == "":
             return None
         else:
             return self.column_class.cast_from_hord(value)
 
     def cast_to(self, value):
         if value == None:
-            return ''
+            return ""
         else:
             return self.column_class.cast_to_hord(value)
 
-class Entry(object):
 
+class Entry(object):
     def __init__(self):
         self.keys = {}
 
@@ -32,10 +31,11 @@ class Entry(object):
         setattr(self, attr, sweor)
         self.keys[key] = attr
 
+
 class Bisen(object):
 
-    __invoker__ = 'Wísdómhord'
-    __description__ = 'Wísdómhord file'
+    __invoker__ = "Wísdómhord"
+    __description__ = "Wísdómhord file"
 
     def __init__(self, **kwargs):
         self.sweoras = {}
@@ -59,9 +59,7 @@ class Bisen(object):
         for k, v in row_dict.items():
             if k in self.sweoras:
                 a = self.sweoras[k]
-                entry.set(a,
-                          self.sweoras_attr[a].cast_from(v),
-                          k)
+                entry.set(a, self.sweoras_attr[a].cast_from(v), k)
 
         return entry
 
