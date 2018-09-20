@@ -8,24 +8,27 @@ import datarum
 
 PATH_TO_WH = os.path.join(os.path.dirname(__file__), "creation_test.hord")
 
+
 class TestBisen(Bisen):
 
-    __invoker__ = 'Wísdómhord Creation Testing'
-    __description__ = 'Creation Test For Wísdómhord'
+    __invoker__ = "Wísdómhord Creation Testing"
+    __description__ = "Creation Test For Wísdómhord"
 
-    col1 = Sweor('COL1', wisdomhord.String)
-    col2 = Sweor('COL2', wisdomhord.Integer)
-    col3 = Sweor('COL3', wisdomhord.Boolean)
-    col4 = Sweor('COL4', wisdomhord.String)
+    col1 = Sweor("COL1", wisdomhord.String)
+    col2 = Sweor("COL2", wisdomhord.Integer)
+    col3 = Sweor("COL3", wisdomhord.Boolean)
+    col4 = Sweor("COL4", wisdomhord.String)
 
 
 class TestWisdomhordReading(unittest.TestCase):
 
-    expected_meta = {'INVOKER' : 'Wísdómhord Creation Testing',
-                     'DESCRIPTION': 'Creation Test For Wísdómhord',
-                     'COUNT': '0'}
+    expected_meta = {
+        "INVOKER": "Wísdómhord Creation Testing",
+        "DESCRIPTION": "Creation Test For Wísdómhord",
+        "COUNT": "0",
+    }
 
-    expected_keys = ['COL1', 'COL2', 'COL3', 'COL4']
+    expected_keys = ["COL1", "COL2", "COL3", "COL4"]
 
     @classmethod
     def setUpClass(cls):
@@ -45,6 +48,8 @@ class TestWisdomhordReading(unittest.TestCase):
         self.assertEqual(self.expected_keys, self.hord.keys)
 
     def test_correct_wending(self):
-        today = datarum.wending.now().strftime('{daeg} {month} {gere} // {tid_zero}.{minute_zero}')
-        self.assertEqual(self.hord.meta['INCEPT'], today)
-        self.assertEqual(self.hord.meta['UPDATED'], today)
+        today = datarum.wending.now().strftime(
+            "{daeg} {month} {gere} // {tid_zero}.{minute_zero}"
+        )
+        self.assertEqual(self.hord.meta["INCEPT"], today)
+        self.assertEqual(self.hord.meta["UPDATED"], today)
