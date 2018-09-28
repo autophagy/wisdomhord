@@ -4,11 +4,11 @@
 // UPDATED :: 9 Regn 226 // 04.00
 // COUNT :: 7
 
-[ COL1          | COL2  | COL3  | COL4        | COL5                   | COL6                       ]
-[ Hello world   | 12345 | True  | If          | 16.02.2018 // 12.15.15 | 28 Regn 226 // 12.11.15    ]
-[ Wes Hál       | 67890 | False | On          | 18.08.2016 // 18.04.00 | 10 Mǽdland 226 // 03.43.05 ]
-[ Hallo Welt    | 123   | True  | A           |                        | 8 Mist 226 // 23.23.23     ]
-[ Saluton mondo | 34    | False | Winters     | 01.01.2001 // 01.01.01 |                            ]
-[ qo' vIvan     | 42    | True  | Night       | 19.08.1991 // 13.45.00 | 24 Mǽdland 226 // 01.02.03 ]
-[ Suilad ambar  | 1968  |       | A           | 20.01.2018 // 12.00.00 | 1 Wending 226 // 18.45.55  ]
-[ Ada mūnok     |       | True  | Traveller   | 10.10.2010 // 10.10.10 | 8 Wæstm 226 // 17.10.00    ]
+[ COL1          | COL2  | COL3  | COL4        | COL5                   | COL6                       | COL7             ]
+[ Hello world   | 12345 | True  | If          | 16.02.2018 // 12.15.15 | 28 Regn 226 // 12.11.15    | 21.340, -10.232  ]
+[ Wes Hál       | 67890 | False | On          | 18.08.2016 // 18.04.00 | 10 Mǽdland 226 // 03.43.05 | 42.333, -10.232  ]
+[ Hallo Welt    | 123   | True  | A           |                        | 8 Mist 226 // 23.23.23     | 12.126, -10.232  ]
+[ Saluton mondo | 34    | False | Winters     | 01.01.2001 // 01.01.01 |                            | -10.937, -10.232 ]
+[ qo' vIvan     | 42    | True  | Night       | 19.08.1991 // 13.45.00 | 24 Mǽdland 226 // 01.02.03 | 160.182, -10.232 ]
+[ Suilad ambar  | 1968  |       | A           | 20.01.2018 // 12.00.00 | 1 Wending 226 // 18.45.55  | 75.484, -10.232  ]
+[ Ada mūnok     |       | True  | Traveller   | 10.10.2010 // 10.10.10 | 8 Wæstm 226 // 17.10.00    | 13.858, -10.232  ]

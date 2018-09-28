@@ -21,6 +21,7 @@ class TestBisen(Bisen):
     col4 = Sweor("FLOAT", wisdomhord.Float)
     col5 = Sweor("DATETIME", wisdomhord.DateTime)
     col6 = Sweor("WENDING", wisdomhord.Wending)
+    col7 = Sweor("COORD", wisdomhord.Coordinate)
 
 
 class TestWisdomhordReading(unittest.TestCase):
@@ -41,6 +42,7 @@ class TestWisdomhordReading(unittest.TestCase):
             "FLOAT": 20.3,
             "DATETIME": datetime.datetime(2018, 2, 16, 12, 11, 15),
             "WENDING": datarum.wending(226, 5, 28, 12, 11, 15),
+            "COORD": (43.058, 41.353),
         }
 
         row_to_insert = TestBisen(
@@ -50,6 +52,7 @@ class TestWisdomhordReading(unittest.TestCase):
             col4=row["FLOAT"],
             col5=row["DATETIME"],
             col6=row["WENDING"],
+            col7=row["COORD"],
         )
 
         self.hord.insert(row_to_insert)
@@ -67,6 +70,7 @@ class TestWisdomhordReading(unittest.TestCase):
             "FLOAT": 20.3,
             "DATETIME": datetime.datetime(2018, 2, 16, 12, 11, 15),
             "WENDING": datarum.wending(226, 5, 28, 12, 11, 15),
+            "COORD": (43.058, 41.353),
         }
 
         row_to_insert = TestBisen(
@@ -76,6 +80,7 @@ class TestWisdomhordReading(unittest.TestCase):
             col4=row["FLOAT"],
             col5=row["DATETIME"],
             col6=row["WENDING"],
+            col7=row["COORD"],
         )
 
         self.hord.insert(row_to_insert)

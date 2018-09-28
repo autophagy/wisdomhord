@@ -21,6 +21,7 @@ class TestBisen(Bisen):
     col4 = Sweor("COL4", wisdomhord.String)
     col5 = Sweor("COL5", wisdomhord.DateTime)
     col6 = Sweor("COL6", wisdomhord.Wending)
+    col7 = Sweor("COL7", wisdomhord.Coordinate)
 
 
 class TestWisdomhordReading(unittest.TestCase):
@@ -33,7 +34,7 @@ class TestWisdomhordReading(unittest.TestCase):
         "COUNT": "7",
     }
 
-    expected_keys = ["COL1", "COL2", "COL3", "COL4", "COL5", "COL6"]
+    expected_keys = ["COL1", "COL2", "COL3", "COL4", "COL5", "COL6", "COL7"]
 
     expected_column_lengths = {
         "COL1": 13,
@@ -42,6 +43,7 @@ class TestWisdomhordReading(unittest.TestCase):
         "COL4": 11,
         "COL5": 22,
         "COL6": 26,
+        "COL7": 16,
     }
 
     @classmethod
@@ -70,6 +72,7 @@ class TestWisdomhordReading(unittest.TestCase):
             "col4": "If",
             "col5": datetime.datetime(2018, 2, 16, 12, 15, 15),
             "col6": datarum.wending(226, 5, 28, 12, 11, 15),
+            "col7": (21.340, -10.232),
         }
 
         row = self.hord.get_rows(limit=1)

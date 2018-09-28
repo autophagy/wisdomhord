@@ -1,5 +1,6 @@
 import datetime
 import datarum
+import re
 
 
 class BaseType(object):
@@ -70,3 +71,30 @@ class Wending(BaseType):
         return value.strftime(
             "{daeg} {month} {gere} // {tid_zero}.{minute_zero}.{second_zero}"
         )
+
+
+class Coordinate(BaseType):
+    @staticmethod
+    def _validate(lon, lat):
+        if not (-180 <= lon <= 180):
+            raise ValueError(
+                f"{lon} is invalid longitude coordinate. Must be between -180 and 180"
+            )
+        if not (-90 <= lat <= 90):
+            raise ValueError(
+                f"{lat} is invalid latitude coordinate. Must be between -90 and 90"
+            )
+
+    @staticmethod
+    def cast_from_hord(value):
+        elements = re.findall(r"^(\-?\d+(?:\.\d+)?), \s*(\-?\d+(?:\.\d+)?)$", value)
+        lon = float(elements[0][0])
+        lat = float(elements[0][1])
+        Coordinate._validate(lon, lat)
+        return (lon, lat)
+
+    @staticmethod
+    def cast_to_hord(value):
+        lon, lat = value
+        Coordinate._validate(lon, lat)
+        return f"{lon}, {lat}"
