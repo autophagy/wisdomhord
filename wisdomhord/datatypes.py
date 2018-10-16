@@ -20,7 +20,7 @@ class String(BaseType):
 
     @staticmethod
     def escape_characters(value, reverse=False):
-        escapes = [(("|", "\|"))]
+        escapes = [("|", "\|"), ("\n", "\\n")]
         for escape in escapes:
             escape = escape[::-1] if reverse else escape
             value = value.replace(*escape)
