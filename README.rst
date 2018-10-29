@@ -12,8 +12,8 @@ check into Github.
     :target: http://wisdomhord.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
-.. image:: http://scieldas.autophagy.io/travis/Autophagy/wisdomhord.png
-    :target: https://travis-ci.org/Autophagy/wisdomhord
+.. image:: http://scieldas.autophagy.io/travis/autophagy/wisdomhord.png
+    :target: https://travis-ci.org/autophagy/wisdomhord
     :alt: Build Status
 
 .. image:: http://scieldas.autophagy.io/pypi/version/wisdomhord.png
