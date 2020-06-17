@@ -8,11 +8,11 @@ The main goal of Wísdómhord is to create a flat file db format that produces
 files that are in line with my aesthetics, are easy to read and make sense to
 check into Github.
 
-.. image:: http://scieldas.autophagy.io/rtd/wisdomhord.png
+.. image:: http://scieldas.autophagy.io/rtd/build/wisdomhord.png
     :target: http://wisdomhord.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
-.. image:: http://scieldas.autophagy.io/travis/autophagy/wisdomhord.png
+.. image:: http://scieldas.autophagy.io/travis/build/autophagy/wisdomhord.png
     :target: https://travis-ci.org/autophagy/wisdomhord
     :alt: Build Status
 
@@ -24,6 +24,6 @@ check into Github.
    :target: https://pypi.python.org/pypi/wisdomhord/
    :alt: Python Version
 
-.. image:: http://scieldas.autophagy.io/licenses/MIT.png
+.. image:: http://scieldas.autophagy.io/misc/licenses/mit.png
    :target: LICENSE
    :alt: MIT License
